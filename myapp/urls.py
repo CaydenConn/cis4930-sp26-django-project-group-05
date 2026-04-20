@@ -10,4 +10,5 @@ urlpatterns = [
     path('records/<int:pk>/delete/', views.movie_delete, name='movie_delete'),
     path('weather/', views.weather_list, name='weather_list'),
     path('weather/<int:pk>/', views.weather_detail, name='weather_detail'),
+    path('analytics/', views.analytics, name='analytics'),
 ]
