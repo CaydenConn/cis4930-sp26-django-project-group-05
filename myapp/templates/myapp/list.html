@@ -1,0 +1,57 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Movies{% endblock %}
+
+{% block content %}
+<h2>All Movies</h2>
+<a href="{% url 'movie_create' %}" class="btn btn-primary mb-3">Add Movie</a>
+
+{% if page_obj.object_list %}
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Genre</th>
+      <th>Rating</th>
+      <th>Score</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for movie in page_obj %}
+    <tr>
+      <td><a href="{% url 'movie_detail' movie.pk %}">{{ movie.name }}</a></td>
+      <td>{{ movie.year }}</td>
+      <td>{{ movie.genre }}</td>
+      <td>{{ movie.rating }}</td>
+      <td>{{ movie.score }}</td>
+      <td>
+        <a href="{% url 'movie_update' movie.pk %}">Edit</a> |
+        <a href="{% url 'movie_delete' movie.pk %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<nav>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+    {% endif %}
+    <li class="page-item disabled"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+    <li class="page-item disabled"><span class="page-link">Next</span></li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% else %}
+<p>No movies found. <a href="{% url 'movie_create' %}">Add one.</a></p>
+{% endif %}
+{% endblock %}

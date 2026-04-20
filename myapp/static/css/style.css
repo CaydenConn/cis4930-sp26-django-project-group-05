@@ -1,0 +1,38 @@
+/* style.css - custom overrides */
+
+/*  page-level spacing  */
+body {
+    padding-top: 10px;
+    padding-bottom: 60px;
+}
+
+/*constrain container width  */
+.container {
+    max-width: 960px;
+}
+
+
+.navbar {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+/*  footer layout and spacing */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 15px;
+    border-top: 1px solid #dee2e6;
+    font-size: 13px;
+    color: #888;
+}
+
+/* make detail/weather tables */
+.table {
+    margin-bottom: 20px;
+}
+
+
+.card-header {
+    background-color: #f0f0f0;
+}

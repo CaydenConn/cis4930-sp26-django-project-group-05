@@ -1,0 +1,29 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome to the Movie Database</h2>
+<p>This app was built for CIS 4930 using a dataset of movies from IMDb. You can browse movies, view details, add new entries, and see weather data pulled from the Open-Meteo API.</p>
+<p>Total movies: <strong>{{ total_movies }}</strong> | Total genres: <strong>{{ total_genres }}</strong></p>
+
+<p>
+  <a href="{% url 'movie_list' %}">Browse all movies</a> |
+  <a href="{% url 'movie_create' %}">Add a movie</a> |
+  <a href="{% url 'weather_list' %}">View weather data</a>
+</p>
+
+<hr>
+<div class="card" style="max-width: 500px;">
+  <div class="card-header"><strong>Recently Added</strong></div>
+  <ul class="list-group list-group-flush">
+    {% for movie in recent %}
+    <li class="list-group-item">
+      <a href="{% url 'movie_detail' movie.pk %}">{{ movie.name }}</a> ({{ movie.year }}) &mdash; {{ movie.score }}/10
+    </li>
+    {% empty %}
+    <li class="list-group-item text-muted">No movies yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

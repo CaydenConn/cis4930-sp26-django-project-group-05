@@ -1,0 +1,82 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}{{ action }} Movie{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Movie</h2>
+
+<form method="post" style="max-width: 600px;">
+  {% csrf_token %}
+
+  {% if form.errors %}
+  <div class="alert alert-danger">Please fix the errors below.</div>
+  {% endif %}
+
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    {{ form.name }}
+    {% if form.name.errors %}<small class="text-danger">{{ form.name.errors }}</small>{% endif %}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Genre</label>
+    {{ form.genre }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Rating</label>
+    {{ form.rating }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Year</label>
+    {{ form.year }}
+    {% if form.year.errors %}<small class="text-danger">{{ form.year.errors }}</small>{% endif %}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Score (0-10)</label>
+    {{ form.score }}
+    {% if form.score.errors %}<small class="text-danger">{{ form.score.errors }}</small>{% endif %}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Votes</label>
+    {{ form.votes }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Director</label>
+    {{ form.director }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Writer</label>
+    {{ form.writer }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Stars</label>
+    {{ form.star }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Country</label>
+    {{ form.country }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Budget ($)</label>
+    {{ form.budget }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Gross ($)</label>
+    {{ form.gross }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Company</label>
+    {{ form.company }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Runtime (min)</label>
+    {{ form.runtime }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Release Date</label>
+    {{ form.released }}
+  </div>
+
+  <button type="submit" class="btn btn-primary">{{ action }}</button>
+  <a href="{% url 'movie_list' %}" class="ms-2">Cancel</a>
+</form>
+{% endblock %}

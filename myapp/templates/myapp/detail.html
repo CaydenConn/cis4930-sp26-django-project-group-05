@@ -1,0 +1,27 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}{{ movie.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ movie.name }} ({{ movie.year }})</h2>
+
+<table class="table table-bordered" style="max-width: 600px;">
+  <tr><th>Genre</th><td>{{ movie.genre }}</td></tr>
+  <tr><th>Rating</th><td>{{ movie.rating }}</td></tr>
+  <tr><th>Score</th><td>{{ movie.score }} / 10</td></tr>
+  <tr><th>Votes</th><td>{{ movie.votes }}</td></tr>
+  <tr><th>Director</th><td>{{ movie.director|default:"N/A" }}</td></tr>
+  <tr><th>Writer</th><td>{{ movie.writer|default:"N/A" }}</td></tr>
+  <tr><th>Stars</th><td>{{ movie.star|default:"N/A" }}</td></tr>
+  <tr><th>Country</th><td>{{ movie.country|default:"N/A" }}</td></tr>
+  <tr><th>Released</th><td>{{ movie.released|default:"N/A" }}</td></tr>
+  <tr><th>Runtime</th><td>{% if movie.runtime %}{{ movie.runtime }} min{% else %}N/A{% endif %}</td></tr>
+  <tr><th>Budget</th><td>{% if movie.budget %}${{ movie.budget|floatformat:"0" }}{% else %}N/A{% endif %}</td></tr>
+  <tr><th>Gross</th><td>{% if movie.gross %}${{ movie.gross|floatformat:"0" }}{% else %}N/A{% endif %}</td></tr>
+  <tr><th>Company</th><td>{{ movie.company|default:"N/A" }}</td></tr>
+</table>
+
+<a href="{% url 'movie_update' movie.pk %}" class="btn btn-primary">Edit</a>
+<a href="{% url 'movie_delete' movie.pk %}" class="btn btn-danger ms-2">Delete</a>
+<a href="{% url 'movie_list' %}" class="ms-2">Back to list</a>
+{% endblock %}

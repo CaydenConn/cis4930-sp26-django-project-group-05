@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}{{ record.city }} - {{ record.date }}{% endblock %}
+
+{% block content %}
+<h2>{{ record.city }} &mdash; {{ record.date }}</h2>
+
+<table class="table table-bordered" style="max-width: 500px;">
+  <tr><th>City</th><td>{{ record.city }}</td></tr>
+  <tr><th>Date</th><td>{{ record.date }}</td></tr>
+  <tr><th>Max Temp</th><td>{% if record.temp_max %}{{ record.temp_max }} °C{% else %}N/A{% endif %}</td></tr>
+  <tr><th>Min Temp</th><td>{% if record.temp_min %}{{ record.temp_min }} °C{% else %}N/A{% endif %}</td></tr>
+  <tr><th>UV Index</th><td>{{ record.uv_index|default:"N/A" }}</td></tr>
+  <tr><th>Precip Probability</th><td>{% if record.precip_probability %}{{ record.precip_probability }}%{% else %}N/A{% endif %}</td></tr>
+  <tr><th>Rain Sum</th><td>{% if record.rain_sum %}{{ record.rain_sum }} mm{% else %}N/A{% endif %}</td></tr>
+  <tr><th>Sunrise</th><td>{{ record.sunrise|default:"N/A" }}</td></tr>
+  <tr><th>Sunset</th><td>{{ record.sunset|default:"N/A" }}</td></tr>
+</table>
+
+<a href="{% url 'weather_list' %}">Back to weather list</a>
+{% endblock %}
