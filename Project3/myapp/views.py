@@ -1,5 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.core.management import call_command
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.http import require_POST
+from django.contrib import messages
+from io import StringIO
 from .models import Movie, Genre, WeatherRecord
 from .forms import MovieForm
 import pandas as pd
@@ -72,6 +77,19 @@ def weather_list(request):
 def weather_detail(request, pk):
     record = get_object_or_404(WeatherRecord, pk=pk)
     return render(request, 'myapp/weather_detail.html', {'record': record})
+
+
+@staff_member_required
+@require_POST
+def fetch_data_view(request):
+    out = StringIO()
+    err = StringIO()
+    try:
+        call_command('fetch_data', stdout=out, stderr=err)
+        messages.success(request, f"Fetched weather data. {out.getvalue().strip()}")
+    except Exception as exc:
+        messages.error(request, f"Fetch failed: {exc}")
+    return redirect('weather_list')
 
 # Reused aggregations from project 1
 def analytics(request):

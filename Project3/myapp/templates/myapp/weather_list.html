@@ -6,6 +6,19 @@
 <h2>Weather Records</h2>
 <p>Florida city weather data from the Open-Meteo API.</p>
 
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+{% if user.is_staff %}
+<form method="post" action="{% url 'fetch_data' %}" class="mb-3">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Fetch Latest Forecast</button>
+</form>
+{% endif %}
+
 {% if page_obj.object_list %}
 <table class="table table-striped table-hover">
   <thead>
