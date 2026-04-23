@@ -46,6 +46,13 @@ def _parse_datetime(value):
     return dt
 
 
+def _get_daily_value(daily, key, index):
+    values = daily.get(key) or []
+    if index < len(values):
+        return values[index]
+    return None
+
+
 class Command(BaseCommand):
     help = "Fetch latest 7-day forecast from Open-Meteo for Florida cities and save to DB."
 
@@ -88,13 +95,13 @@ class Command(BaseCommand):
                         continue
 
                     defaults = {
-                        "temp_max": daily.get("temperature_2m_max", [None] * len(dates))[i],
-                        "temp_min": daily.get("temperature_2m_min", [None] * len(dates))[i],
-                        "sunrise": _parse_datetime(daily.get("sunrise", [None] * len(dates))[i]),
-                        "sunset": _parse_datetime(daily.get("sunset", [None] * len(dates))[i]),
-                        "uv_index": daily.get("uv_index_max", [None] * len(dates))[i],
-                        "precip_probability": daily.get("precipitation_probability_max", [None] * len(dates))[i],
-                        "rain_sum": daily.get("rain_sum", [None] * len(dates))[i],
+                        "temp_max": _get_daily_value(daily, "temperature_2m_max", i),
+                        "temp_min": _get_daily_value(daily, "temperature_2m_min", i),
+                        "sunrise": _parse_datetime(_get_daily_value(daily, "sunrise", i)),
+                        "sunset": _parse_datetime(_get_daily_value(daily, "sunset", i)),
+                        "uv_index": _get_daily_value(daily, "uv_index_max", i),
+                        "precip_probability": _get_daily_value(daily, "precipitation_probability_max", i),
+                        "rain_sum": _get_daily_value(daily, "rain_sum", i),
                     }
 
                     _, created = WeatherRecord.objects.update_or_create(
