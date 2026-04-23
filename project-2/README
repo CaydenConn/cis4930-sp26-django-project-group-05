@@ -1,1 +1,27 @@
-Project 2: 
+Project 2: Weather API Pipeline Automation
+
+Description
+For our second project we have collected forecast data from the 5 largest cities in Florida. Using the Open-meteo api data we have extracted, transformed and pushed that data through a pipepline to be used for analysis and forecasting predictions.
+
+Goals:
+Gather 7-day forecast data on the weather in Jacksonville, Tampa, St. Petersburg, Miami, and Orlando
+Accumulated results into a csv file
+Handles errors and logs errors
+
+Nicholas Marciniak: nem22c
+API Lead/ documentation
+Cayden Conn: cbc22b
+Data/Storage Lead
+Judah Alter: jaa22h
+CSV and logging implementation
+Ben Ashir Georges:bsg22a
+Automation
+
+HOW TO RUN:
+
+use the command:
+python src/pipeline.py
+
+
+API Documentation:
+https://open-meteo.com/en/docs
