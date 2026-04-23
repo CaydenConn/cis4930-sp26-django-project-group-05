@@ -36,5 +36,67 @@
   </tbody>
 </table>
 
+<h3>R-Rated Movies by Year</h3>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Average Score</th>
+      <th>Movie Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in r_movies_trend %}
+    <tr>
+      <td>{{ row.year }}</td>
+      <td>{{ row.avg_score }}</td>
+      <td>{{ row.movie_count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Top Genres by Average Gross</h3>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Genre</th>
+      <th>Average Gross</th>
+      <th>Total Gross</th>
+      <th>Movie Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in genre_gross_summary %}
+    <tr>
+      <td>{{ row.genre }}</td>
+      <td>{{ row.avg_gross }}</td>
+      <td>{{ row.total_gross }}</td>
+      <td>{{ row.movie_count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Top Countries by Average ROI</h3>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Country</th>
+      <th>Average ROI</th>
+      <th>Movie Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in country_roi %}
+    <tr>
+      <td>{{ row.country }}</td>
+      <td>{{ row.avg_roi }}</td>
+      <td>{{ row.movie_count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endif %}
 {% endblock %}

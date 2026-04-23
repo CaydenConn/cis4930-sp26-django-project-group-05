@@ -135,6 +135,7 @@ def analytics(request):
         total_gross=("gross", "sum"),
         movie_count=("name", "count"),
     ).sort_values("avg_gross", ascending=False)
+    genre_gross_summary = genre_gross_summary.reset_index().head(10).round(2)
 
     # Average ROI per country (top 10)
     df_roi = df.dropna(subset=['budget', 'gross']).copy()
@@ -143,9 +144,15 @@ def analytics(request):
         avg_roi=("roi", "mean"),
         movie_count=("name", "count"),
     ).sort_values("avg_roi", ascending=False)
+    country_roi = country_roi.reset_index().head(10).round(2)
+
+    r_movies_trend = r_movies_trend.reset_index().round(2)
 
 
     return render(request, 'myapp/analytics.html', {
         'empty': False,
         'summary_stats': summary_stats,
+        'r_movies_trend': r_movies_trend.to_dict(orient='records'),
+        'genre_gross_summary': genre_gross_summary.to_dict(orient='records'),
+        'country_roi': country_roi.to_dict(orient='records'),
     })
