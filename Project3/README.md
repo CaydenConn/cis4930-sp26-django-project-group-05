@@ -1,46 +1,56 @@
-# Project 3
+# Project 3: Web Development Project
 
-This Django project now includes the 2.6 deployment-readiness updates:
+## Description
+This Django web application explores a dataset of movies sourced from IMDb, continuing the analysis begun in Projects 1 and 2. The app allows users to browse, search, and manage movie records through a full CRUD interface, view live weather data for Florida cities fetched from a public API, and explore an analytics dashboard with aggregated insights such as genre revenue breakdowns and budget-vs-gross comparisons.
 
-- Settings split into `config/settings/base.py`, `config/settings/dev.py`, and `config/settings/prod.py`
-- `python-decouple` used for `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`, and `DATABASE_URL`
-- `.env` kept out of version control through the repo-level `.gitignore`
-- `requirements.txt` refreshed from the active environment
-- `Procfile` and `runtime.txt` added for deployment on Railway or Render
-- Production settings configured with `gunicorn` and `whitenoise`
+## Application Features
 
-## Local Setup
+| Page / View | Route | Description |
+|---|---|---|
+| **Homepage** | `/` | Dashboard showing total movie and genre counts, quick navigation links, and a "Recently Added" card listing the five newest movies. |
+| **Movie List** | `/records/` | Paginated table (20 per page) of all movies displaying title, year, genre, rating, and score with links to edit or delete each entry. |
+| **Movie Detail** | `/records/<id>/` | Full detail view for a single movie including director, writer, star, country, budget, gross, runtime, and computed profit. |
+| **Add Movie** | `/records/add/` | Form to create a new movie record with validation (year range, score 0–10, genre foreign key selection). |
+| **Edit Movie** | `/records/<id>/edit/` | Pre-populated form to update an existing movie's fields. |
+| **Delete Movie** | `/records/<id>/delete/` | Confirmation page before permanently removing a movie from the database. |
+| **Weather List** | `/weather/` | Paginated table of weather records for five Florida cities (Jacksonville, Miami, Orlando, Tampa, St. Petersburg) showing date, temperatures, UV index, and precipitation. |
+| **Weather Detail** | `/weather/<id>/` | Single-record view with full weather details including sunrise, sunset, and rain totals. |
+| **Fetch Weather Data** | `/fetch/` | Staff-only POST endpoint that triggers the `fetch_data` management command to pull fresh forecasts from the Open-Meteo API and store them in the database. |
+| **Analytics Dashboard** | `/analytics/` | Data-driven dashboard built with Chart.js featuring: summary statistics (count, mean, min, max) for score, gross, and runtime; a pie chart of movies by MPAA rating; a bar chart of average gross revenue by genre (top 10); a scatter plot of budget vs. gross (top 100 movies); a table of average R-rated movie scores by year; and a table of average ROI by country (top 10). |
 
-```powershell
-C:/Users/Judah/AppData/Local/Microsoft/WindowsApps/python3.13.exe -m pip install -r requirements.txt
-C:/Users/Judah/AppData/Local/Microsoft/WindowsApps/python3.13.exe manage.py migrate
-C:/Users/Judah/AppData/Local/Microsoft/WindowsApps/python3.13.exe manage.py seed_data
-C:/Users/Judah/AppData/Local/Microsoft/WindowsApps/python3.13.exe manage.py runserver
-```
+## Group Members and Contributions
+### Cayden Conn: cbc22b
+- 2.1
+- 2.4
+- README
+### Nicholas Marciniak: nem22c
+- 2.2
+- 2.3
+### Judah Alter: jaa22h
+- 2.4
+- 2.6
+- README (as a part of 2.6)
+### Ben Ashir Georges:bsg22a
+- 2.5
 
-Open the app at `http://127.0.0.1:8000/`.
+### API Documentation:
+https://open-meteo.com/en/docs
 
-## Deployment Check
+### Data Set:
+https://www.kaggle.com/datasets/danielgrijalvas/movies
 
-I verified the production settings with Django's deploy check:
+### Startup Instructions:
+- Clone the repository `git clone {link}`
+- Run a virtual environment
+- `pip install -r requirements.txt`
+- `python manage.py migrate`
+- `python manage.py seed_data`
+- `python manage.py fetch_data`
+- `python manage.py runserver`
+- Open the application at `http://127.0.0.1:8000/`
 
-```powershell
-$env:DEBUG='False'; $env:ALLOWED_HOSTS='localhost,127.0.0.1'; C:/Users/Judah/AppData/Local/Microsoft/WindowsApps/python3.13.exe manage.py check --settings=config.settings.prod --deploy
-```
+<img width="1881" height="880" alt="image" src="https://github.com/user-attachments/assets/e8ee9ff6-dd7b-422c-93bb-41fc95fc6188" />
 
-Output:
+<img width="1910" height="903" alt="image" src="https://github.com/user-attachments/assets/836a2fbe-a618-47d3-9d5f-d13785fab395" />
 
-```text
-System check identified no issues (0 silenced).
-```
-
-## Deployment Notes
-
-- `manage.py` uses `config.settings.dev` for local development.
-- `mysite/wsgi.py` and `mysite/asgi.py` use `config.settings.prod` for deployment.
-- The `Procfile` entry is:
-
-```text
-web: gunicorn mysite.wsgi:application --bind 0.0.0.0:$PORT
-```
-
+<img width="1909" height="892" alt="image" src="https://github.com/user-attachments/assets/7fe59a14-35d4-4bee-8385-df128bbb45e7" />
