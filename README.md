@@ -26,10 +26,10 @@ This Django web application explores a dataset of movies sourced from IMDb, cont
 ### Nicholas Marciniak: nem22c
 - 2.2
 - 2.3
-- README
 ### Judah Alter: jaa22h
 - 2.4
 - 2.6
+- README (as a part of 2.6)
 ### Ben Ashir Georges:bsg22a
 - 2.5
 
