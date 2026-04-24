@@ -1,38 +1,224 @@
 /* style.css - custom overrides */
 
-/*  page-level spacing  */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── 1. PAGE LAYOUT: dark background, global font ──────────────────────── */
 body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0f1117;
+    color: #e2e8f0;
     padding-top: 10px;
-    padding-bottom: 60px;
+    padding-bottom: 80px;
 }
 
-/*constrain container width  */
+/* ── 2. CONTAINER: constrain width ─────────────────────────────────────── */
 .container {
-    max-width: 960px;
+    max-width: 980px;
 }
 
-
+/* ── 3. NAVBAR: dark bar, gold brand, spaced links ─────────────────────── */
 .navbar {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    background-color: #12141c !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0.6rem 1rem;
 }
 
-/*  footer layout and spacing */
-footer {
-    text-align: center;
-    margin-top: 50px;
-    padding-top: 15px;
-    border-top: 1px solid #dee2e6;
-    font-size: 13px;
-    color: #888;
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #e2c97e !important;
+    text-transform: uppercase;
 }
 
-/* make detail/weather tables */
-.table {
-    margin-bottom: 20px;
+.navbar .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #a0aec0 !important;
 }
 
+.navbar .nav-link:hover {
+    color: #e2c97e !important;
+}
+
+/* ── 4. HEADINGS: gold left-border accent ───────────────────────────────── */
+h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f0e6c8;
+    border-left: 4px solid #e2c97e;
+    padding-left: 0.75rem;
+    margin-bottom: 1.4rem;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #a0aec0;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* ── 5. CARDS: dark surface with border ─────────────────────────────────── */
+.card {
+    background-color: #1a1d2e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
 
 .card-header {
-    background-color: #f0f0f0;
+    background-color: #12141c;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    color: #e2c97e;
+    border-radius: 0.6rem 0.6rem 0 0 !important;
+}
+
+.list-group-item {
+    background-color: #1a1d2e;
+    border-color: rgba(255, 255, 255, 0.07);
+    color: #cbd5e0;
+}
+
+.list-group-item a {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
+/* ── 6. TABLES: dark rows, sticky gold header, tight padding ────────────── */
+.table {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.03);
+    --bs-table-color: #cbd5e0;
+    --bs-table-striped-color: #cbd5e0;
+    --bs-table-border-color: rgba(255, 255, 255, 0.07);
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #1e2235;
+    color: #e2c97e;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 2px solid rgba(226, 201, 126, 0.3);
+}
+
+.table td,
+.table th {
+    padding: 0.55rem 0.9rem;
+    vertical-align: middle;
+}
+
+.table a {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
+/* ── 7. PAGINATION: centered, dark tiles ────────────────────────────────── */
+.pagination {
+    justify-content: center;
+    gap: 4px;
+    margin-top: 1.25rem;
+}
+
+.page-link {
+    background-color: #1a1d2e;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #a0aec0;
+    border-radius: 0.35rem !important;
+    padding: 0.4rem 0.85rem;
+}
+
+.page-link:hover {
+    background-color: #e2c97e;
+    border-color: #e2c97e;
+    color: #0f1117;
+}
+
+.page-item.disabled .page-link {
+    background-color: #12141c;
+    border-color: rgba(255, 255, 255, 0.06);
+    color: #4a5568;
+}
+
+/* ── 8. FORM CONTROLS: dark inputs, gold focus ring ─────────────────────── */
+.form-control,
+.form-select {
+    background-color: #1a1d2e;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.85rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #1a1d2e;
+    border-color: #e2c97e;
+    color: #f0e6c8;
+    box-shadow: 0 0 0 3px rgba(226, 201, 126, 0.2);
+    outline: none;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #a0aec0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* ── 9. BUTTONS ─────────────────────────────────────────────────────────── */
+.btn-primary {
+    background-color: #e2c97e;
+    border-color: #e2c97e;
+    color: #0f1117;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #f0d98e;
+    border-color: #f0d98e;
+    color: #0f1117;
+}
+
+/* ── 10. FOOTER: centered, muted ────────────────────────────────────────── */
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 12px;
+    color: #4a5568;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ── MISC ───────────────────────────────────────────────────────────────── */
+code {
+    background-color: #1e2235;
+    color: #e2c97e;
+    padding: 0.15em 0.45em;
+    border-radius: 0.3rem;
+    font-size: 0.88em;
+}
+
+a {
+    color: #93c5fd;
+}
+
+hr {
+    border-color: rgba(255, 255, 255, 0.08);
 }
