@@ -98,5 +98,115 @@
   </tbody>
 </table>
 
+<h3>Charts</h3>
+<div class="row g-4">
+  <div class="col-12 col-lg-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h4 class="h6">Average Gross by Genre</h4>
+        <canvas id="genreBarChart" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h4 class="h6">Movie Ratings Distribution</h4>
+        <canvas id="ratingDoughnutChart" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="h6">Budget vs Gross Scatter Plot</h4>
+        <canvas id="budgetGrossScatterChart" height="120"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const genreBarData = {{ top_genre_chart_json|safe }};
+    const ratingDoughnutData = {{ rating_chart_json|safe }};
+    const scatterData = {{ scatter_chart_json|safe }};
+
+    const genreBarCtx = document.getElementById('genreBarChart');
+    if (genreBarCtx) {
+      new Chart(genreBarCtx, {
+        type: 'bar',
+        data: genreBarData,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    }
+
+    const ratingDoughnutCtx = document.getElementById('ratingDoughnutChart');
+    if (ratingDoughnutCtx) {
+      new Chart(ratingDoughnutCtx, {
+        type: 'doughnut',
+        data: ratingDoughnutData,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+          },
+        },
+      });
+    }
+
+    const budgetGrossScatterCtx = document.getElementById('budgetGrossScatterChart');
+    if (budgetGrossScatterCtx) {
+      new Chart(budgetGrossScatterCtx, {
+        type: 'scatter',
+        data: scatterData,
+        options: {
+          responsive: true,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const point = context.raw;
+                  const name = point.label || 'Movie';
+                  return `${name}: Budget $${point.x.toLocaleString()} | Gross $${point.y.toLocaleString()}`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Budget',
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Gross',
+              },
+            },
+          },
+        },
+      });
+    }
+  });
+</script>
 {% endblock %}
