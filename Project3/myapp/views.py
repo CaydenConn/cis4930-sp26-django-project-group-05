@@ -148,6 +148,47 @@ def analytics(request):
 
     r_movies_trend = r_movies_trend.reset_index().round(2)
 
+    rating_counts = df['rating'].value_counts().sort_values(ascending=False)
+    rating_chart_data = {
+        'labels': rating_counts.index.tolist(),
+        'datasets': [{
+            'label': 'Movies by Rating',
+            'data': rating_counts.values.tolist(),
+            'backgroundColor': [
+                '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
+                '#9467bd', '#8c564b', '#e377c2', '#7f7f7f',
+                '#bcbd22', '#17becf', '#aec7e8', '#ffbb78',
+            ],
+            'borderWidth': 1,
+        }],
+    }
+
+    top_genre_chart_data = {
+        'labels': genre_gross_summary['genre'].tolist(),
+        'datasets': [{
+            'label': 'Average Gross',
+            'data': genre_gross_summary['avg_gross'].tolist(),
+            'backgroundColor': '#4c78a8',
+            'borderColor': '#4c78a8',
+        }],
+    }
+
+    scatter_source = df.dropna(subset=['budget', 'gross']).sort_values('budget', ascending=False).head(100)
+    scatter_chart_data = {
+        'datasets': [{
+            'label': 'Budget vs Gross',
+            'data': [
+                {
+                    'x': float(row['budget']),
+                    'y': float(row['gross']),
+                    'label': row['name'],
+                }
+                for _, row in scatter_source.iterrows()
+            ],
+            'backgroundColor': '#f58518',
+        }],
+    }
+
 
     return render(request, 'myapp/analytics.html', {
         'empty': False,
@@ -155,4 +196,7 @@ def analytics(request):
         'r_movies_trend': r_movies_trend.to_dict(orient='records'),
         'genre_gross_summary': genre_gross_summary.to_dict(orient='records'),
         'country_roi': country_roi.to_dict(orient='records'),
+        'rating_chart_json': json.dumps(rating_chart_data),
+        'top_genre_chart_json': json.dumps(top_genre_chart_data),
+        'scatter_chart_json': json.dumps(scatter_chart_data),
     })
