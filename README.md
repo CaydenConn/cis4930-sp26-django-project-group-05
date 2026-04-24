@@ -36,7 +36,6 @@ https://www.kaggle.com/datasets/danielgrijalvas/movies
 - `python manage.py fetch_data`
 - `python manage.py runserver`
 
-- 
 
 <img width="1881" height="880" alt="image" src="https://github.com/user-attachments/assets/e8ee9ff6-dd7b-422c-93bb-41fc95fc6188" />
 
